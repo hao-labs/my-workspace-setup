@@ -1,0 +1,6 @@
+---
+# roles/brew/vars/main.yml
+environments:
+  linuxbrew: /home/linuxbrew/.linuxbrew/bin
+  bashrc: $HOME/.bashrc
+  installUrl: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh

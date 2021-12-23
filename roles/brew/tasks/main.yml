@@ -1,9 +1,9 @@
 ---
 # roles/brew/tasks/main.yml
 
-- name: check if linux brew already installed
+- name: check if linux brew already installed on {{ linuxbrew }}
   stat:
-    path: /home/linuxbrew/.linuxbrew/bin/brew
+    path: "{{ linuxbrew }}/brew"
   register: brew
 
 - name: install apt build-essential
@@ -14,20 +14,17 @@
   when: not brew.stat.exists
 
 - name: install linux brew
-  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ installUrl }})"
   when: not brew.stat.exists
 
 - name: register brew binary files to path
   lineinfile:
-    dest: $HOME/.bashrc
-    line: 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'
+    dest: "{{ bashrc }}"
+    line: 'export PATH="{{ linuxbrew }}:$PATH"'
     insertafter: EOF
-  when: brew.stat.exists
-
-- name: source bashrc to make sure brew path exported in current terminal session
-  ansible.builtin.shell: 'source $HOME/.bashrc'
-  ignore_errors: yes
-  when: brew.stat.exists
+  environment:
+    PATH: '{{ linuxbrew }}:{{ ansible_env.PATH }}'
+  when: lookup('file', "{{ bashrc }}") is not search('{{ linuxbrew }}')
 
 - name: check Brew is working fine
   ansible.builtin.shell: 'brew doctor'
