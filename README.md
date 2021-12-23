@@ -6,10 +6,8 @@
 
     ```
     ansible all -c local -i inventory -m ping
-    ```
 
     Command Result: 
-    ```
     localhost | SUCCESS => {
         "ansible_facts": {
             "discovered_interpreter_python": "/usr/bin/python3"
