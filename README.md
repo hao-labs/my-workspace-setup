@@ -1,11 +1,13 @@
 # My Workspace Setup Configuration
 
-# Check if host of workspace available and reachable
+## Check if host of workspace available and reachable
 <details>
     <summary>Click to expand!</summary>
+
     ```
     ansible all -c local -i inventory -m ping
     ```
+
     Command Result: 
     ```
     localhost | SUCCESS => {
