@@ -17,3 +17,16 @@
     }
     ```
 </details>
+
+## Get list of available hosts
+<details>
+    <summary>Click to expand!</summary>
+
+    ```
+    ansible all --list-hosts
+
+    Command Result: 
+      hosts (1):
+        localhost 
+    ```
+</details>
