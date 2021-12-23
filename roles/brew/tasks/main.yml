@@ -1,15 +1,17 @@
 ---
 # roles/brew/tasks/main.yml
 
-- name: install apt build-essential
-  become: yes
-  apt:
-    name: build-essential
-
 - name: check if linux brew already installed
   stat:
     path: /home/linuxbrew/.linuxbrew/bin/brew
   register: brew
+
+- name: install apt build-essential
+  become: yes
+  apt:
+    name: build-essential
+    state: absent
+  when: not brew.stat.exists
 
 - name: install linux brew
   ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
