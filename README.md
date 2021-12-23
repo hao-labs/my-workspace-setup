@@ -5,7 +5,7 @@
     <summary>Click to expand!</summary>
 
     ```
-    ansible all -c local -i inventory -m ping
+    ansible all -c local -m ping
 
     Command Result: 
     localhost | SUCCESS => {
