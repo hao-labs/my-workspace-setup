@@ -14,7 +14,7 @@
   when: not brew.stat.exists
 
 - name: install linux brew
-  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ installUrl }})"
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ install_url }})"
   when: not brew.stat.exists
 
 - name: register brew binary files to path
@@ -24,7 +24,7 @@
     insertafter: EOF
   environment:
     PATH: '{{ linuxbrew }}:{{ ansible_env.PATH }}'
-  when: lookup('file', "{{ bashrc }}") is not search('{{ linuxbrew }}')
+  when: lookup('file', {{ bashrc }}) is not search('{{ linuxbrew }}')
 
 - name: check Brew is working fine
   ansible.builtin.shell: 'brew doctor'
