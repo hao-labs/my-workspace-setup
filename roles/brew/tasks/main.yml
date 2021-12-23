@@ -24,6 +24,10 @@
     insertafter: EOF
   when: brew.stat.exists
 
+- name: source bashrc to make sure brew path exported in current terminal session
+  ansible.builtin.shell: 'source $HOME/.bashrc'
+  when: brew.stat.exists
+
 - name: check Brew is working fine
-  ansible.builtin.shell: brew doctor
+  ansible.builtin.shell: 'brew doctor'
   when: brew.stat.exists
