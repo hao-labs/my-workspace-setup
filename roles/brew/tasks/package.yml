@@ -1,0 +1,10 @@
+---
+# roles/brew/tasks/package.yml
+
+- name: Installing required package with linuxbrew
+  community.general.homebrew:
+    name: 
+      - ripgrep
+      - neovim
+    state: latest
+    update_homebrew: yes
