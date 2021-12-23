@@ -27,5 +27,5 @@
   when: brew.stat.exists
 
 - name: check Brew is working fine
-  ansible.builtin.shell: 'brew doctor'
+  ansible.builtin.shell: brew --version
   when: brew.stat.exists
