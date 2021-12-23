@@ -1,0 +1,4 @@
+- hosts: workspace
+  roles:
+    - brew
+    - mosh
