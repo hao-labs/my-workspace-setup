@@ -26,6 +26,7 @@
 
 - name: source bashrc to make sure brew path exported in current terminal session
   ansible.builtin.shell: 'source $HOME/.bashrc'
+  ignore_errors: yes
   when: brew.stat.exists
 
 - name: check Brew is working fine
