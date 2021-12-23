@@ -1,5 +1,5 @@
 ---
-# roles/brew/vars/main.yml
+# roles/brew/vars/install.yml
 
 linuxbrew: /home/linuxbrew/.linuxbrew/bin
 bashrc: $HOME/.bashrc
