@@ -2,9 +2,10 @@
 ## Features
 <details><summary>Click to expand!</summary>
 
-1. Automatically install latest version  whenever it's possible
+1. Automatically install latest version (from listed app) whenever it's possible
 2. Automatically check if installed apps working properly (ready to use)
 3. Install locally or multiple available servers/hosts
+4. Automatically setup installed apps configuration
 </details>
 
 ## List Installed App
@@ -49,3 +50,5 @@ ansible all --list-hosts
     localhost 
 ```
 </details>
+
+## [License](https://github.com/hao-labs/my-workspace-setup/blob/main/LICENSE)
