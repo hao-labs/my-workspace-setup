@@ -1,3 +1,6 @@
+---
+# file: setup-workspace.yml
+
 - hosts: workspace
   roles:
     - brew

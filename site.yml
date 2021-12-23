@@ -1,1 +1,4 @@
+---
+# file: site.yml
+
 - import_playbook: setup-workspace.yml

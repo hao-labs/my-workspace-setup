@@ -1,19 +1,16 @@
 ---
+# roles/mosh/tasks/main.yml
 
-- hosts: workspace
-  become: true
-  tasks:
+- name: check if mosh already installed
+  stat:
+    path: /bin/mosh
+  register: mosh
 
-  - name: check if mosh already installed
-    stat:
-      path: /bin/mosh
-    register: mosh
+- name: install mosh
+  apt:
+    name: mosh
+  when: not mosh.stat.exists
 
-  - name: install mosh
-    apt:
-      name: mosh
-    when: not mosh.stat.exists
-
-  - name: check mosh version
-    ansible.builtin.shell: mosh --version
-    when: mosh.stat.exists
+- name: check mosh version
+  ansible.builtin.shell: mosh --version
+  when: mosh.stat.exists

@@ -1,29 +1,26 @@
 ---
+# roles/brew/tasks/main.yml
 
-- hosts: all
-  become: true
-  tasks:
+- name: install apt build-essential
+  apt:
+    name: build-essential
 
-  - name: install apt build-essential
-    apt:
-      name: build-essential
+- name: check if linux brew already installed
+  stat:
+    path: /home/linuxbrew/.linuxbrew/bin/brew
+  register: brew
 
-  - name: check if linux brew already installed
-    stat:
-      path: /home/linuxbrew/.linuxbrew/bin/brew
-    register: brew
+- name: install linux brew
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when: not brew.stat.exists
 
-  - name: install linux brew
-    ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    when: not brew.stat.exists
+- name: register brew binary files to path
+  lineinfile:
+    dest: $HOME/.bashrc
+    line: 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'
+    insertafter: EOF
+  when: brew.stat.exists
 
-  - name: register brew binary files to path
-    lineinfile:
-      dest: $HOME/.bashrc
-      line: 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'
-      insertafter: EOF
-    when: brew.stat.exists
-
-  - name: check Brew is working fine
-    ansible.builtin.shell: brew doctor
-    when: brew.stat.exists
+- name: check Brew is working fine
+  ansible.builtin.shell: brew doctor
+  when: brew.stat.exists
