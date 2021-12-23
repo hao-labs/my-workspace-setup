@@ -24,7 +24,7 @@
     insertafter: EOF
   environment:
     PATH: '{{ linuxbrew }}:{{ ansible_env.PATH }}'
-  when: lookup('file', {{ bashrc }}) is not search('{{ linuxbrew }}')
+  when: brew.stat.exists
 
 - name: check Brew is working fine
   ansible.builtin.shell: 'brew doctor'
