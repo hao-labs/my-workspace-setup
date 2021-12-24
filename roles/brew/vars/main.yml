@@ -6,3 +6,6 @@ install:
   folder: /home/linuxbrew/.linuxbrew/bin
   env: $HOME/.profile
   url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  packages:
+    - ripgrep
+    - neovim

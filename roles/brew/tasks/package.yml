@@ -5,8 +5,6 @@
   environment:
     PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
-    name: 
-      - ripgrep
-      - neovim
+    name: "{{ install.packages }}"
     state: latest
     update_homebrew: yes
