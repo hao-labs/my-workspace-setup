@@ -16,12 +16,31 @@
 3. [Rip Grep (latest version)](https://github.com/BurntSushi/ripgrep)
 </details>
 
+## Usage
+<details><summary>Click to expand!</summary>
+
+### Install all packages for development on all hosts/servers
+```
+ansible-playbook site.yml
+```
+
+### Install all packages for development on localhost
+```
+ansible-playbook site.yml --limit localhost
+```
+
+### Install all packages for development on 172.22.169.176
+```
+ansible-playbook site.yml --limit 172.22.169.176
+```
+</details>
+
 ## Check if host of workspace available and reachable
 <details><summary>Click to expand!</summary>
 
 ### Ping Local Host
 ```
-ansible all -c local -m ping
+ansible all -m ping
 ```
 
 ### Command Result: 
