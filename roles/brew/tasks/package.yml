@@ -2,6 +2,8 @@
 # roles/brew/tasks/package.yml
 
 - name: Installing required package with linuxbrew
+  environment:
+    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
     name: 
       - ripgrep

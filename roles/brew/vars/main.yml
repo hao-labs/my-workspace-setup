@@ -2,7 +2,7 @@
 # roles/brew/vars/main.yml
 # don't change filename to vars/install.yml (not loaded)
 
-linuxbrew: /home/linuxbrew/.linuxbrew/bin
-bashrc: $HOME/.bashrc
-install: 
+install:
+  folder: /home/linuxbrew/.linuxbrew/bin
+  env: $HOME/.profile
   url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh

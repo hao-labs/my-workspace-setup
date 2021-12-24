@@ -1,9 +1,9 @@
 ---
 # roles/brew/tasks/install.yml
 
-- name: check if linux brew already installed on {{ linuxbrew }}
+- name: check if linux brew already installed on {{ install.folder }}
   stat:
-    path: "{{ linuxbrew }}/brew"
+    path: "{{ install.folder }}/brew"
   register: brew
 
 - name: install apt build-essential
@@ -19,13 +19,16 @@
 
 - name: register brew binary files to path
   lineinfile:
-    dest: "{{ bashrc }}"
-    line: 'export PATH="{{ linuxbrew }}:$PATH"'
+    state: present
+    dest: "{{ install.env }}"
+    line: 'export PATH="{{ install.folder }}:$PATH"'
     insertafter: EOF
   environment:
-    PATH: '{{ linuxbrew }}:{{ ansible_env.PATH }}'
+    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
   when: brew.stat.exists
 
 - name: check Brew is working fine
   ansible.builtin.shell: brew --version
+  environment:
+    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
   when: brew.stat.exists
