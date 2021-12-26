@@ -2,9 +2,11 @@
 # roles/brew/tasks/main.yml
 
 - name: Install and setup linuxbrew on Ubuntu
+  tags: install,brew
   import_tasks: install.yml
   when: ansible_distribution == "Ubuntu"
 
 - name: Install required package with linuxbrew on Ubuntu
+  tags: install,brew-packages
   import_tasks: package.yml
   when: ansible_distribution == "Ubuntu"
