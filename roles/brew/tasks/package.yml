@@ -5,6 +5,6 @@
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
-    name: "{{ install.packages }}"
+    name: "{{ brew.packages }}"
     state: latest
     update_homebrew: yes
