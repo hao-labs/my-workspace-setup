@@ -1,10 +1,16 @@
 ---
 # roles/brew/tasks/package.yml
+- name: Get list of installed brew packages
+  environment:
+    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
+  command: brew list
+  register: packages
+  changed_when: packages.rc == 2
 
-- name: Installing required package with linuxbrew
+- name: Installing package that has not yet been installed with linuxbrew
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
-    name: "{{ brew.packages }}"
+    name: "{{ brew.packages | difference(packages.stdout_lines) }}"
     state: latest
     update_homebrew: yes
