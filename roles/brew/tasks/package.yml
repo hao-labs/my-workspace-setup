@@ -8,8 +8,3 @@
     name: "{{ brew.packages }}"
     state: latest
     update_homebrew: yes
-
-- name: Check Installed packages
-  debug:
-    msg: "{{ item }}"
-  loop: "{{ brew.packages }}"
