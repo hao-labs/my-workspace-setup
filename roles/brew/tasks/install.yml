@@ -1,34 +1,34 @@
 ---
 # roles/brew/tasks/install.yml
 
-- name: check if linux brew already installed on {{ install.folder }}
+- name: check if linux brew already installed on {{ brew.folder }}
   stat:
-    path: "{{ install.folder }}/brew"
-  register: brew
+    path: "{{ brew.folder }}/brew"
+  register: brew_check
 
 - name: install apt build-essential
   become: yes
   apt:
     name: build-essential
     state: absent
-  when: not brew.stat.exists
+  when: not brew_check.stat.exists
 
 - name: install linux brew
-  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ install.url }})"
-  when: not brew.stat.exists
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ brew.url }})"
+  when: not brew_check.stat.exists
 
 - name: register brew binary files to path
   lineinfile:
     state: present
-    dest: "{{ install.env }}"
-    line: 'export PATH="{{ install.folder }}:$PATH"'
+    dest: "{{ brew.env }}"
+    line: 'export PATH="{{ brew.folder }}:$PATH"'
     insertafter: EOF
   environment:
-    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
-  when: brew.stat.exists
+    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
+  when: brew_check.stat.exists
 
 - name: check Brew is working fine
   ansible.builtin.shell: brew --version
   environment:
-    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
-  when: brew.stat.exists
+    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
+  when: brew_check.stat.exists

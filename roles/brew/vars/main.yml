@@ -2,10 +2,12 @@
 # roles/brew/vars/main.yml
 # don't change filename to vars/install.yml (not loaded)
 
-install:
+brew:
   folder: /home/linuxbrew/.linuxbrew/bin
   env: $HOME/.profile
   url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
   packages:
     - ripgrep
     - neovim
+    - node
+    - pnpm

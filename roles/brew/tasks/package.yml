@@ -3,7 +3,7 @@
 
 - name: Installing required package with linuxbrew
   environment:
-    PATH: "{{ install.folder }}:{{ ansible_env.PATH }}"
+    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
     name: "{{ install.packages }}"
     state: latest
