@@ -13,5 +13,5 @@
   when: not mosh.stat.exists
 
 - name: check mosh version
-  ansible.builtin.shell: mosh --version
+  command: mosh --version
   when: mosh.stat.exists
