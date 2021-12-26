@@ -31,4 +31,5 @@
   command: brew --version
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
-  when: brew_check.stat.exists
+  register: result
+  changed_when: result.rc == 2
