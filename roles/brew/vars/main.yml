@@ -11,3 +11,4 @@ brew:
     - neovim
     - node
     - pnpm
+    - gh
