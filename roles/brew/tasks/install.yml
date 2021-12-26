@@ -28,7 +28,7 @@
   when: brew_check.stat.exists
 
 - name: check Brew is working fine
-  ansible.builtin.shell: brew --version
+  command: brew --version
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   when: brew_check.stat.exists
