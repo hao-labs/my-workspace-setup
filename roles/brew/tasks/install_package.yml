@@ -4,13 +4,14 @@
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   command: brew list
-  register: packages
-  changed_when: packages.rc == 2
+  register: installed_packages
+  changed_when: installed_packages.rc == 2
 
 - name: Installing package that has not yet been installed with linuxbrew
   environment:
     PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
   community.general.homebrew:
-    name: "{{ brew.packages | difference(packages.stdout_lines) }}"
+    name: "{{ packages | difference(installed_packages.stdout_lines) }}"
     state: latest
     update_homebrew: yes
+  when: packages | difference(installed_packages.stdout_lines) | length  > 0

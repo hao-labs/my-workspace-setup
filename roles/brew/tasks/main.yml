@@ -8,5 +8,7 @@
 
 - name: Install required package with linuxbrew on Ubuntu
   tags: install,brew-packages
+  vars:
+    packages: "{{ brew.packages }}"
   import_tasks: install_package.yml
   when: ansible_distribution == "Ubuntu"
