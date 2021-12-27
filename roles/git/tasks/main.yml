@@ -1,10 +1,10 @@
 ---
 # roles/git/tasks/main.yml
 
-- name: configure git global configurations
+- name: Configure git global configurations
   tags: configure,git,global
   import_tasks: configure.yml
 
-- name: install commitizen
+- name: Install commitizen
   tags: install,commitizen
   import_tasks: install-commitizen.yml
