@@ -1,0 +1,7 @@
+---
+# roles/mosh/vars/main.yml
+
+mosh:
+  name: mosh
+  bin_dir: /usr/bin
+  check_version: true
