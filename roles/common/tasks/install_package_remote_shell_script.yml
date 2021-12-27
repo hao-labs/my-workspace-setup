@@ -1,0 +1,22 @@
+---
+# roles/common/tasks/install_apt_package.yml
+- name: Install package {{ package.name }} from remote shell script
+  ansible.builtin.shell: "{{ package.shell }}"
+  register: result
+  changed_when: result.rc == 2
+
+- name: Append PATH env for package {{ package.name }} into {{ package.env }}
+  lineinfile:
+    state: present
+    dest: "{{ package.env }}"
+    line: 'export PATH="{{ package.dir }}:$PATH"'
+    insertafter: EOF
+  when: not package.env and (package.register_path | default(false))
+
+- name: Check package {{ package.name }} version
+  environment:
+    PATH: "{{ package.dir }}:{{ ansible_env.PATH }}"
+  command: "{{ package.name }} --version"
+  register: result
+  changed_when: result.rc == 2
+  when: package.check_version | default(false)

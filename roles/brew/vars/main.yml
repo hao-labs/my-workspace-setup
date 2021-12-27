@@ -3,7 +3,7 @@
 # don't change filename to vars/install.yml (not loaded)
 
 brew:
-  folder: /home/linuxbrew/.linuxbrew/bin
+  dir: /home/linuxbrew/.linuxbrew/bin
   env: $HOME/.profile
   url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
   packages:

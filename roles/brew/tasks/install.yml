@@ -1,9 +1,9 @@
 ---
 # roles/brew/tasks/install.yml
 
-- name: check if linux brew already installed on {{ brew.folder }}
+- name: Check if linux brew already installed on {{ brew.dir }}
   stat:
-    path: "{{ brew.folder }}/brew"
+    path: "{{ brew.dir }}/brew"
   register: brew_check
 
 - name: install apt build-essential
@@ -13,23 +13,16 @@
     state: absent
   when: not brew_check.stat.exists
 
-- name: install linux brew
-  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL {{ brew.url }})"
+- name: Install brew package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "brew"
+      env: "{{ brew.env }}"
+      dir: "{{ brew.dir }}"
+      shell: /bin/bash -c "$(curl -fsSL {{ brew.url }})"
+      check_version: true
+      register_path: true
   when: not brew_check.stat.exists
-
-- name: register brew binary files to path
-  lineinfile:
-    state: present
-    dest: "{{ brew.env }}"
-    line: 'export PATH="{{ brew.folder }}:$PATH"'
-    insertafter: EOF
-  environment:
-    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
-  when: brew_check.stat.exists
-
-- name: check Brew is working fine
-  command: brew --version
-  environment:
-    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
-  register: result
-  changed_when: result.rc == 2
