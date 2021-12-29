@@ -12,3 +12,4 @@ brew:
     - node
     - pnpm
     - gh
+    - fzf
