@@ -14,7 +14,7 @@
   changed_when: result.rc == 2
   when: not commitizen_config.stat.exists
 
-- name: Creating an empty configuration file
+- name: Create an empty configuration file
   file:
     path: ~/.czrc
     state: touch
