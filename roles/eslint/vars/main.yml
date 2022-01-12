@@ -1,0 +1,7 @@
+---
+# roles/eslint/vars/main.yml
+
+eslint:
+  name: eslint_d
+  dir: /home/linuxbrew/.linuxbrew/bin
+  check_version: true

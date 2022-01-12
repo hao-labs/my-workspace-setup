@@ -1,0 +1,23 @@
+---
+# roles/common/tasks/install-pnpm-package.yml
+
+- name: Check if package {{ package.name }} already installed
+  stat:
+    path: "{{ package.dir }}/{{ package.name }}"
+  register: package_check
+
+- name: Install {{ package.name }} package globally
+  command: pnpm add -g {{ package.name }}
+  environment:
+    PATH: "{{ package.dir }}:{{ ansible_env.PATH }}"
+  register: result
+  changed_when: result.rc == 2
+  when: not package_check.stat.exists
+
+- name: Check package {{ package.name }} version
+  environment:
+    PATH: "{{ package.dir }}:{{ ansible_env.PATH }}"
+  command: "{{ package.name }} --version"
+  register: result
+  changed_when: result.rc == 2
+  when: package.check_version | default(false)

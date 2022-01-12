@@ -1,0 +1,9 @@
+---
+# roles/eslint/tasks/main.yml
+
+- name: === EslintD Package ===
+  include_role:
+    name: common
+    tasks_from: install_pnpm_package.yml
+  vars:
+    package: "{{ eslint }}"
