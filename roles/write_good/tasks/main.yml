@@ -1,0 +1,9 @@
+---
+# roles/write_good/tasks/main.yml
+
+- name: === write-good package ===
+  include_role:
+    name: common
+    tasks_from: install_pnpm_package.yml
+  vars:
+    package: "{{ write_good }}"

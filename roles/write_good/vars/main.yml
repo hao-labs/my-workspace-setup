@@ -1,0 +1,7 @@
+---
+# roles/write_good/vars/main.yml
+
+write_good:
+  name: write-good
+  dir: /home/linuxbrew/.linuxbrew/bin
+  check_version: true
