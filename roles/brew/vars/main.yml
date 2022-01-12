@@ -13,3 +13,6 @@ brew:
     - pnpm
     - gh
     - fzf
+    - vale
+    - starship
+    - exa
