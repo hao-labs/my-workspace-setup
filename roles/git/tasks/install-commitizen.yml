@@ -13,17 +13,3 @@
   register: result
   changed_when: result.rc == 2
   when: not commitizen_config.stat.exists
-
-- name: Create an empty configuration file
-  file:
-    path: ~/.czrc
-    state: touch
-    mode: '0644'
-  when: not commitizen_config.stat.exists
-
-- name: add commitizen configuration
-  lineinfile:
-    path: ~/.czrc
-    line: '{ "path": "cz-conventional-changelog" }'
-    insertbefore: BOF
-  when: commitizen_config.stat.exists
