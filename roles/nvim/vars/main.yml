@@ -1,6 +1,8 @@
 ---
 # roles/nvim/vars/main.yml
 
+brew:
+  folder: /home/linuxbrew/.linuxbrew/bin
 nvim:
   dir: ~/.config/nvim
   init_file: init.lua
