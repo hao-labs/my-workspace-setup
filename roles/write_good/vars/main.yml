@@ -3,5 +3,6 @@
 
 write_good:
   name: write-good
+  bin: write-good
   dir: /home/linuxbrew/.linuxbrew/bin
   check_version: true

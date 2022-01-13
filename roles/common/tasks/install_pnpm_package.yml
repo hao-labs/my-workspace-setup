@@ -3,7 +3,7 @@
 
 - name: Check if package {{ package.name }} already installed
   stat:
-    path: "{{ package.dir }}/{{ package.name }}"
+    path: "{{ package.dir }}/{{ package.bin }}"
   register: package_check
 
 - name: Install {{ package.name }} package globally
@@ -17,7 +17,7 @@
 - name: Check package {{ package.name }} version
   environment:
     PATH: "{{ package.dir }}:{{ ansible_env.PATH }}"
-  command: "{{ package.name }} --version"
+  command: "{{ package.bin }} --version"
   register: result
   changed_when: result.rc == 2
   when: package.check_version | default(false)
