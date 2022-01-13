@@ -1,0 +1,24 @@
+---
+# roles/nvim/tasks/main.yml
+
+- name: Check if directory nvim exist
+  stat:
+    path: "{{ config.dir }}"
+  register: nvim_dir
+
+- name: Create directory {{ config.dir }}
+  file:
+    path: "{{ config.dir }}"
+    state: directory
+    mode: 0755
+  when: not nvim_dir.stat.exists and nvim_dir.stat.isdir
+
+- name: Clone a repository
+  git:
+    repo: "{{ config.clone_url }}"
+    dest: "{{ config.dir }}"
+    accept_hostkey: yes
+    clone: yes
+    update: yes
+    version: "master"
+    key_file: "{{ config.key_file }}"

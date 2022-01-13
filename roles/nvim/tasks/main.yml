@@ -1,0 +1,8 @@
+---
+# roles/nvim/tasks/main.yml
+
+- name: Configure Neovim
+  tags: configure,nvim
+  import_tasks: configure_nvim.yml
+  vars:
+    config: "{{ nvim }}"

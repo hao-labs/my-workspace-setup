@@ -1,0 +1,9 @@
+---
+# roles/nvim/vars/main.yml
+
+nvim:
+  dir: ~/.config/nvim
+  init_file: init.lua
+  init_path: ~/.config/nvim/init.lua
+  clone_url: git@github.com:hao-labs/neovim-config.git
+  key_file: ~/.ssh/id_ed25519
