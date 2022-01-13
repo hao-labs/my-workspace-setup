@@ -9,3 +9,4 @@
     - eslint
     - write_good
     - nvim
+    - prettier

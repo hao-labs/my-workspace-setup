@@ -1,0 +1,8 @@
+---
+# roles/prettier/vars/main.yml
+
+prettier:
+  name: '@fsouza/prettierd'
+  bin: prettierd
+  dir: /home/linuxbrew/.linuxbrew/bin
+  check_version: true
