@@ -16,3 +16,16 @@
     PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
   register: result
   changed_when: result.rc == 2
+
+- name: Download os icon from {{ oh_my_fish.icon_url | regex_replace('\\s') }}
+    to /usr/local/bin/os-icon
+  ansible.builtin.get_url:
+    url: "{{ oh_my_fish.icon_url | regex_replace('\\s') }}"
+    dest: /usr/local/bin/os-icon
+  become: yes
+
+- name: Make the binary executable
+  file:
+    dest: /usr/local/bin/os-icon
+    mode: a+x
+  become: yes

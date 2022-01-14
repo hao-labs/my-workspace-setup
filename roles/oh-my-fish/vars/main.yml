@@ -8,3 +8,5 @@ oh_my_fish:
   dir: $HOME/.config/omf
   url: 'https://raw.githubusercontent.com/oh-my-fish/
     oh-my-fish/master/bin/install'
+  icon_url: 'https://github.com/ttys3/starship-config/
+    releases/download/v0.2.0/os-icon.linux_amd64'
