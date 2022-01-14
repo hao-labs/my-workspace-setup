@@ -1,22 +1,62 @@
 ---
 # roles/common/tasks/install_apt_package.yml
+
+- name: Check shell script exists on path /tmp/{{ package.name }}
+  stat:
+    path: /tmp/{{ package.name }}
+  register: check_script
+
+- name: Download content of shell script from {{ package.url }}
+    to /tmp/{{ package.name }}
+  ansible.builtin.get_url:
+    url: "{{ package.url }}"
+    dest: /tmp/{{ package.name }}
+  when: not check_script.stat.exists
+    and (package.url| default(false))
+
 - name: Install package {{ package.name }} from remote shell script
-  ansible.builtin.shell: "{{ package.shell }}"
+  command: "{{ package.shell }}"
   register: result
   changed_when: result.rc == 2
+  when: (not package.env | default(false))
+    and (package.shell | default(false))
 
-- name: Append PATH env for package {{ package.name }} into {{ package.env }}
+- name: Install package {{ package.name }} from remote shell script
+    with env path
+  command: "{{ package.shell }}"
+  environment: "{{ package.env }}"
+  register: result
+  changed_when: result.rc == 2
+  when: (package.env | default(false))
+    and (package.shell | default(false))
+
+- name: Append PATH env for package {{ package.name }}
+    into {{ package.register_env_path }}
   lineinfile:
     state: present
-    dest: "{{ package.env }}"
+    dest: "{{ package.register_env_path }}"
     line: 'export PATH="{{ package.dir }}:$PATH"'
     insertafter: EOF
-  when: not package.env and (package.register_path | default(false))
+  when: (package.register_env_path | default(false))
 
 - name: Check package {{ package.name }} version
-  environment:
-    PATH: "{{ package.dir }}:{{ ansible_env.PATH }}"
-  command: "{{ package.name }} --version"
+  command: "{{ package.bin }} --version"
   register: result
   changed_when: result.rc == 2
-  when: package.check_version | default(false)
+  when: (package.check_version | default(false))
+    and (not package.env | default(false))
+    and (package.bin | default(false))
+
+- name: Check package {{ package.name }} version with environment
+  environment: "{{ package.env }}"
+  command: "{{ package.bin }} --version"
+  register: result
+  changed_when: result.rc == 2
+  when: (package.check_version | default(false))
+    and (package.env | default(false))
+    and (package.bin | default(false))
+
+- name: Remove shell script
+  ansible.builtin.file:
+    path: "/tmp/{{ package.name }}"
+    state: absent

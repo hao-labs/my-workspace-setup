@@ -20,9 +20,13 @@
   vars:
     package:
       name: "brew"
-      env: "{{ brew.env }}"
+      url: "{{ brew.url }}"
+      register_env_path: "{{ brew.env }}"
       dir: "{{ brew.dir }}"
-      shell: /bin/bash -c "$(curl -fsSL {{ brew.url }})"
+      shell: /bin/bash /tmp/brew
+      bin: "brew"
       check_version: true
-      register_path: true
+      env:
+        PATH: "{{ brew.dir }}:{{ ansible_env.PATH }}"
+        CI: 1 # Non Interactive mode
   when: not brew_check.stat.exists
