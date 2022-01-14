@@ -16,3 +16,4 @@ brew:
     - vale
     - starship
     - exa
+    - fish
