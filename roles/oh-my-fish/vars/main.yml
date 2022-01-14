@@ -1,0 +1,10 @@
+---
+# roles/oh-my-fish/vars/main.yml
+# don't change filename to vars/install.yml (not loaded)
+
+user_name: "{{ ansible_user_id }}"
+oh_my_fish:
+  name: oh-my-fish
+  dir: $HOME/.config/omf
+  url: 'https://raw.githubusercontent.com/oh-my-fish/
+    oh-my-fish/master/bin/install'

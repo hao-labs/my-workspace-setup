@@ -1,0 +1,21 @@
+---
+# roles/oh-my-fish/tasks/set_default_shell.yml
+
+- name: get fish binary location
+  command: which fish
+  environment:
+    PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
+  register: fish
+  changed_when: fish.rc == 2
+
+- name: Append fish shell path to /etc/shells
+  lineinfile:
+    state: present
+    dest: /etc/shells
+    line: '{{ fish.stdout }}'
+    insertafter: EOF
+  become: yes
+
+- name: change default shell
+  user: name="{{ user_name }}" shell="{{ fish.stdout }}"
+  become: yes

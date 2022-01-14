@@ -1,0 +1,18 @@
+---
+# roles/oh-my-fish/tasks/configure_fish.yml
+
+- name: Configure PATH for fish shell
+  command: fish -c "fish_add_path /home/hao/.local/bin/
+    /home/linuxbrew/.linuxbrew/bin/"
+  environment:
+    PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
+  register: result
+  changed_when: result.rc == 2
+  failed_when: result.rc == 2
+
+- name: Remove Fish Greetings
+  command: fish -c "set -U fish_greeting"
+  environment:
+    PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
+  register: result
+  changed_when: result.rc == 2

@@ -28,5 +28,6 @@
       check_version: true
       env:
         PATH: "{{ brew.dir }}:{{ ansible_env.PATH }}"
-        CI: 1 # Non Interactive mode
+        # Non Interactive mode
+        CI: 1
   when: not brew_check.stat.exists

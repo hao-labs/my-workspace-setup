@@ -1,0 +1,22 @@
+---
+# roles/oh-my-fish/tasks/install.yml
+
+- name: Check oh_my_fish directory exists
+  stat:
+    path: "{{ oh_my_fish.dir }}"
+  register: check_dir
+
+- name: Install oh-my-fish package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "oh-my-fish"
+      url: "{{ oh_my_fish.url | regex_replace('\\s') }}"
+      dir: "{{ oh_my_fish.dir }}"
+      shell: fish /tmp/oh-my-fish --noninteractive
+      check_version: false
+      env:
+        PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
+  when: not check_dir.stat.exists
