@@ -18,3 +18,4 @@ brew:
     - exa
     - fish
     - glow
+    - gitlint
