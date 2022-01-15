@@ -8,6 +8,7 @@
     - git
     - eslint
     - write_good
-    - nvim
     - prettier
+    - nvim
+    - kool
     - oh-my-fish

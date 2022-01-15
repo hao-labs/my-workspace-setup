@@ -1,0 +1,23 @@
+---
+# roles/kool/tasks/install.yml
+
+- name: Check kool directory exists
+  stat:
+    path: "{{ kool.dir }}"
+  register: check_dir
+
+- name: Install kool package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "{{ kool.name }}"
+      bin: "{{ kool.bin }}"
+      url: "{{ kool.url | regex_replace('\\s') }}"
+      dir: "{{ kool.dir }}"
+      shell: bash /tmp/kool
+      check_version: true
+      env:
+        PATH: "/home/linuxbrew/.linuxbrew/bin/:{{ ansible_env.PATH }}"
+  when: not check_dir.stat.exists

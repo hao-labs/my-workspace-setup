@@ -1,0 +1,9 @@
+---
+# roles/kool/vars/main.yml
+# don't change filename to vars/install.yml (not loaded)
+
+kool:
+  name: kool
+  bin: kool
+  dir: /usr/local/bin
+  url: 'https://kool.dev/install'

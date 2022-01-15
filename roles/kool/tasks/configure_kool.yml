@@ -1,0 +1,13 @@
+---
+# roles/kool/tasks/configure_fish.yml
+
+- name: Add a user johndoe and add them to a group developer
+  user:
+    name: hao
+    groups: docker
+    append: yes
+
+- name: newgp dockerr
+  command: newgrp docker
+  register: result
+  changed_when: result.rc == 2
