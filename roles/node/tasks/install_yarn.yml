@@ -12,3 +12,9 @@
   register: result
   changed_when: result.rc == 2
   when: not(check_yarn.stdout.find('yarn') != -1)
+
+- name: Register yarn binary path
+  command: fish -c "fish_add_path ~/.yarn/bin"
+  register: result
+  changed_when: result.rc == 2
+  failed_when: result.rc == 2
