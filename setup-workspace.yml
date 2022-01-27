@@ -5,10 +5,11 @@
   roles:
     - brew
     - mosh
+    - nvim
+    - kool
+    - oh-my-fish
+    - node
     - git
     - eslint
     - write_good
     - prettier
-    - nvim
-    - kool
-    - oh-my-fish
