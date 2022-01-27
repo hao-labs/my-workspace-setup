@@ -9,8 +9,6 @@ brew:
   packages:
     - ripgrep
     - neovim
-    - node
-    - pnpm
     - gh
     - fzf
     - vale
