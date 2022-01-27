@@ -1,0 +1,30 @@
+---
+# roles/node/tasks/install.yml
+
+- name: Check if NVM already installed
+  command: fish -c "omf list -p"
+  register: check_nvm
+  changed_when: check_nvm.rc == 2
+
+- name: Install NVM (Node Version Manager) for fish
+  command: fish -c "omf install nvm"
+  register: result
+  changed_when: result.rc == 2
+  when: not(check_nvm.stdout.find('omf') != -1)
+
+- name: Check if Node already installed
+  command: which node
+  register: check_node
+  changed_when: check_node.rc == 2
+
+- name: Install Latest LTS node
+  command: fish -c "nvm install --lts"
+  register: result
+  changed_when: result.rc == 2
+  when: not(check_node.stdout.find('node') != -1)
+
+- name: Use Latest LTS node
+  command: fish -c "nvm use node"
+  register: result
+  changed_when: result.rc == 2
+  when: not(check_node.stdout.find('node') != -1)

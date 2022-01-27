@@ -19,3 +19,4 @@ brew:
     - fish
     - glow
     - gitlint
+    - pre-commit

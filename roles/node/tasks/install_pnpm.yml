@@ -1,0 +1,14 @@
+---
+# roles/node/tasks/install_pnpm.yml
+
+- name: Check if pnpm already installed
+  command: which pnpm
+  register: check_pnpm
+  changed_when: check_pnpm.rc == 2
+  failed_when: check_pnpm.rc == 2
+
+- name: Install yarn
+  command: npm install -g pnpm
+  register: result
+  changed_when: result.rc == 2
+  when: not(check_pnpm.stdout.find('pnpm') != -1)

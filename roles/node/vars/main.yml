@@ -1,0 +1,5 @@
+---
+# roles/node/vars/main.yml
+
+node:
+  name: node

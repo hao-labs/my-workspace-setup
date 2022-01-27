@@ -1,0 +1,14 @@
+---
+# roles/node/tasks/install_yarn.yml
+
+- name: Check if yarn already installed
+  command: which yarn
+  register: check_yarn
+  changed_when: check_yarn.rc == 2
+  failed_when: check_yarn.rc == 2
+
+- name: Install yarn
+  command: npm install -g yarn
+  register: result
+  changed_when: result.rc == 2
+  when: not(check_yarn.stdout.find('yarn') != -1)

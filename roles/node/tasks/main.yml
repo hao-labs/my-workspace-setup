@@ -1,0 +1,17 @@
+---
+# roles/node/tasks/main.yml
+
+- name: Install {{ node.name }} on Ubuntu
+  tags: install,node
+  import_tasks: install.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install yarn on Ubuntu
+  tags: install,yarn
+  import_tasks: install_yarn.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install pnpm on Ubuntu
+  tags: install,pnpm
+  import_tasks: install_pnpm.yml
+  when: ansible_distribution == "Ubuntu"
