@@ -15,3 +15,8 @@
   tags: install,pnpm
   import_tasks: install_pnpm.yml
   when: ansible_distribution == "Ubuntu"
+
+- name: Install peerdeps on Ubuntu
+  tags: install,peerdeps
+  import_tasks: install_peerdeps.yml
+  when: ansible_distribution == "Ubuntu"

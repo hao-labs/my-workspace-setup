@@ -1,0 +1,7 @@
+---
+# roles/node/tasks/main.yml
+
+- name: Install install-peerdeps
+  command: yarn global add install-peerdeps
+  register: result
+  changed_when: result.rc == 2
