@@ -18,3 +18,9 @@
   register: result
   changed_when: result.rc == 2
   failed_when: result.rc == 2
+
+- name: Update yarn to the latest versions
+  command: yarn set version stable
+  register: result
+  changed_when: result.rc == 2
+  failed_when: result.rc == 2
