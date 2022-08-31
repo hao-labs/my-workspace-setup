@@ -9,11 +9,9 @@ brew:
   packages:
     - ripgrep
     - neovim
-    - node
-    - pnpm
     - gh
     - fzf
-    - vale
+    # - vale
     - starship
     - exa
     - fish
