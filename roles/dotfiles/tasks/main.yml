@@ -1,0 +1,29 @@
+---
+# roles/dotfiles/tasks/main.yml
+
+- name: Get list all folders excludes .ssh
+  ansible.builtin.find:
+    paths: ~/dotfiles
+    recurse: yes
+    file_type: directory
+    excludes: '.ssh,scripts,local-env'
+  register: folders
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: "{{ item }}"
+    dest: "{{ item | replace('~/dotfiles', '~/') }}"
+    state: link
+  with_items: "{{ folders }}"
+
+- name: Copy ssh private key
+  copy:
+    src: ~/dotfiles/.ssh/id_ed25519 
+    dest: ~/.ssh/id_ed25519
+    mode: '0600'
+
+- name: Copy ssh public key
+  copy:
+    src: ~/dotfiles/.ssh/id_ed25519.pub
+    dest: ~/.ssh/id_ed25519.pub
+    mode: '0600'
