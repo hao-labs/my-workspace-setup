@@ -3,6 +3,7 @@
 
 - hosts: workspace
   roles:
+    - pnpm
     - brew
     - mosh
     - git
