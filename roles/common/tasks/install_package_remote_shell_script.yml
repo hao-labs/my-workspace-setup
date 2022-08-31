@@ -1,5 +1,5 @@
 ---
-# roles/common/tasks/install_apt_package.yml
+# roles/common/tasks/install_package_remote_shell_script.yml
 
 - name: Check shell script exists on path /tmp/{{ package.name }}
   stat:
