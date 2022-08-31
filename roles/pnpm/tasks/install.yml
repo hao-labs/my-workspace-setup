@@ -1,0 +1,23 @@
+---
+# roles/pnpm/tasks/install.yml
+
+- name: Check pnpm directory exists 
+  stat:
+    path: "{{ pnpm.dir }}"
+  register: check_dir
+
+- name: Install pnpm package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "{{ pnpm.name }}"
+      url: "{{ pnpm.url | regex_replace('\\s') }}"
+      dir: "{{ pnpm.dir }}"
+      shell: fish /tmp/oh-my-fish --noninteractive
+      check_version: false
+      env:
+        PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
+        PNPM_HOME: "{{ pnpm.dir }}"
+  when: not check_dir.stat.exists

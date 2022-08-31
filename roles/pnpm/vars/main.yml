@@ -1,0 +1,8 @@
+---
+# roles/pnpm/vars/main.yml
+# don't change filename to vars/install.yml (not loaded)
+
+oh_my_fish:
+  name: pnpm
+  dir: $HOME/.local/share/pnpm
+  url: 'https://get.pnpm.io/install.sh'

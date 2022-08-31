@@ -1,0 +1,9 @@
+- name: Install latest node lts version with pnpm 
+  command: "pnpm env use --global lts"
+  register: result
+  changed_when: result.rc == 2
+
+- name: Check node version
+  command: "node --version"
+  register: result
+  changed_when: result.rc == 2

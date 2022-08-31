@@ -1,0 +1,12 @@
+---
+# roles/pnpm/tasks/main.yml
+
+- name: Install pnpm package
+  tags: install,pnpm
+  import_tasks: install.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install nodejs package
+  tags: install,node
+  import_tasks: install_node.yml
+  when: ansible_distribution == "Ubuntu"
