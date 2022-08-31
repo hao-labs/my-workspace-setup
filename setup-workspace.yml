@@ -5,12 +5,12 @@
   roles:
     - dotfiles
     - pnpm
-    - brew
-    - mosh
-    - git
-    - eslint
-    - write_good
-    - prettier
-    - nvim
-    - kool
-    - oh-my-fish
+    # - brew
+    # - mosh
+    # - git
+    # - eslint
+    # - write_good
+    # - prettier
+    # - nvim
+    # - kool
+    # - oh-my-fish
