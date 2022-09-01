@@ -1,9 +1,15 @@
 - name: Install latest node lts version with pnpm 
   command: "pnpm env use --global lts"
   register: result
+  environment:
+    PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
+    PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2
 
 - name: Check node version
   command: "node --version"
   register: result
+  environment:
+    PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
+    PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2
