@@ -16,4 +16,4 @@ brew:
     - exa
     - fish
     - glow
-    - gitlint
+    # - gitlint
