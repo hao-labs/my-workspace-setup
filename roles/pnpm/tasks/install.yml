@@ -15,7 +15,7 @@
       name: "{{ pnpm.name }}"
       url: "{{ pnpm.url | regex_replace('\\s') }}"
       dir: "{{ pnpm.dir }}"
-      shell: fish /tmp/oh-my-fish --noninteractive
+      shell: sh /tmp/pnpm
       check_version: false
       env:
         PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
