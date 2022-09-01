@@ -1,9 +1,9 @@
 ---
 # roles/pnpm/tasks/install.yml
 
-- name: Check pnpm directory exists 
+- name: Check pnpm binary exists {{ pnpm.dir }}/{{ pnpm.name }}
   stat:
-    path: "{{ pnpm.dir }}"
+    path: "{{ pnpm.dir }}/{{ pnpm.name }}"
   register: check_dir
 
 - name: Install pnpm package
