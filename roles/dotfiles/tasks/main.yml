@@ -1,29 +1,39 @@
 ---
 # roles/dotfiles/tasks/main.yml
 
-- name: Get list all folders excludes .ssh
-  ansible.builtin.find:
-    paths: ~/dotfiles
-    recurse: yes
-    file_type: directory
-    excludes: '.ssh,scripts,local-env'
-  register: folders
+- name: Get list all files 
+  find:
+    paths: 
+      - ~/dotfiles
+      - ~/dotfiles/local-env
+    recurse: no
+    file_type: file
+    excludes: 
+      - '.git'
+      - '.gitmodules'
+      - 'readme.md'
+  register: files
 
-- name: Create a symbolic link
-  ansible.builtin.file:
+- name: Create a file symbolic link
+  file:
+    src: "{{ item }}"
+    dest: "{{ item.path | 
+      replace(lookup('ansible.builtin.env', 'HOME'), '~') | 
+      replace('~/dotfiles', '~') | 
+      replace('~/local-env', '~') }}"
+    state: link
+  with_items: "{{ files.files }}"
+
+- name: Debug 
+  debug:
+    msg: "{{ files.files }}"
+
+- name: Create a folder symbolic link
+  file:
     src: "{{ item }}"
     dest: "{{ item | replace('~/dotfiles', '~/') }}"
     state: link
-  with_items: "{{ folders }}"
-
-- name: Copy ssh private key
-  copy:
-    src: ~/dotfiles/local-env/.ssh/id_ed25519 
-    dest: ~/.ssh/id_ed25519
-    mode: '0600'
-
-- name: Copy ssh public key
-  copy:
-    src: ~/dotfiles/local-env/.ssh/id_ed25519.pub
-    dest: ~/.ssh/id_ed25519.pub
-    mode: '0600'
+  with_items: 
+    - ~/dotfiles/.config/fish
+    - ~/dotfiles/.config/lvim
+    - ~/dotfiles/.local/share/pnpm
