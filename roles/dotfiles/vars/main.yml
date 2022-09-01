@@ -1,0 +1,21 @@
+---
+# roles/pnpm/vars/main.yml
+# don't change filename to vars/install.yml (not loaded)
+
+create:
+  folders:
+    - ~/.config/
+    - ~/.local/share
+symlinks:
+  path_files:
+    - ~/dotfiles
+    - ~/dotfiles/local-env
+  exclude_files:
+    - '.git'
+    - '.gitmodules'
+    - 'readme.md'
+  folders:
+    - ~/dotfiles/.config/fish
+    - ~/dotfiles/.config/lvim
+    - ~/dotfiles/.local/share/pnpm
+

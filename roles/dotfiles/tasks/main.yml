@@ -3,20 +3,16 @@
 
 - name: Get list all files 
   find:
-    paths: 
-      - ~/dotfiles
-      - ~/dotfiles/local-env
+    paths: "{{ symlinks.path_files }}"
     recurse: no
+    hidden: yes
     file_type: file
-    excludes: 
-      - '.git'
-      - '.gitmodules'
-      - 'readme.md'
+    excludes: "{{ symlinks.exclude_files }}"
   register: files
 
 - name: Create a file symbolic link
   file:
-    src: "{{ item }}"
+    src: "{{ item.path }}"
     dest: "{{ item.path | 
       replace(lookup('ansible.builtin.env', 'HOME'), '~') | 
       replace('~/dotfiles', '~') | 
@@ -24,16 +20,22 @@
     state: link
   with_items: "{{ files.files }}"
 
-- name: Debug 
-  debug:
-    msg: "{{ files.files }}"
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items: "{{ create.folders }}"
+
+- name: Remove existing symbolic link folder
+  file:
+    path: "{{ item | replace('~/dotfiles', '~') }}"
+    state: absent
+  with_items: " {{ symlinks.folders }}"
 
 - name: Create a folder symbolic link
   file:
     src: "{{ item }}"
-    dest: "{{ item | replace('~/dotfiles', '~/') }}"
+    dest: "{{ item | replace('~/dotfiles', '~') }}"
     state: link
-  with_items: 
-    - ~/dotfiles/.config/fish
-    - ~/dotfiles/.config/lvim
-    - ~/dotfiles/.local/share/pnpm
+  with_items: " {{ symlinks.folders }}"
