@@ -17,5 +17,5 @@ symlinks:
   folders:
     - ~/dotfiles/.config/fish
     - ~/dotfiles/.config/lvim
-    - ~/dotfiles/.local/share/pnpm
+    - ~/dotfiles/.local/share/pnpm/global/5
 
