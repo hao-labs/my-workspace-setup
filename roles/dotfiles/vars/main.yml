@@ -10,6 +10,8 @@ symlinks:
   path_files:
     - ~/dotfiles
     - ~/dotfiles/local-env
+    - ~/dotfiles/.local/share/pnpm/
+    - ~/dotfiles/.local/share/pnpm/global/5
   exclude_files:
     - '.git'
     - '.gitmodules'
@@ -17,5 +19,3 @@ symlinks:
   folders:
     - ~/dotfiles/.config/fish
     - ~/dotfiles/.config/lvim
-    - ~/dotfiles/.local/share/pnpm/global/5
-
