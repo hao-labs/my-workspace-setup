@@ -2,7 +2,7 @@
   command: "pnpm env use --global lts"
   register: result
   environment:
-    PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
+    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
     PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2
 
@@ -10,6 +10,6 @@
   command: "node --version"
   register: result
   environment:
-    PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
+    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
     PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2

@@ -4,5 +4,5 @@
 
 pnpm:
   name: pnpm
-  dir: $HOME/.local/share/pnpm
+  dir: ~/.local/share/pnpm
   url: 'https://get.pnpm.io/install.sh'
