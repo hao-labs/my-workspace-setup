@@ -2,11 +2,13 @@
 # roles/pnpm/vars/main.yml
 # don't change filename to vars/install.yml (not loaded)
 
+dotfiles:
+  folder: ~/dotfiles
+  repo: git@github.com:hao-labs/dotfiles.git
 create:
   folders:
     - ~/.config/
     - ~/.local/share
-    - ~/.local/share/pnpm/global/5
 symlinks:
   path_files:
     - ~/dotfiles
@@ -18,4 +20,3 @@ symlinks:
   folders:
     - ~/dotfiles/.config/fish
     - ~/dotfiles/.config/lvim
-    - ~/dotfiles/.local/share/pnpm/global/5

@@ -1,0 +1,32 @@
+---
+# roles/dotfiles/tasks/sync_dotfiles.yml
+
+- name: Check dotfiles folder exists {{ lvim.dir }}/{{ lvim.name }}
+  stat:
+    path: "{{ dotfiles.folder }}"
+  register: check_dir
+
+- name: Copy ssh private key to remote
+  copy:
+    src: ~/.ssh/id_ed25519
+    dest: ~/.ssh/
+    mode: '0600'
+  when: not check_dir.stat.exists
+
+- name: Copy ssh public key to remote
+  copy:
+    src: ~/.ssh/id_ed25519.pub
+    dest: ~/.ssh/
+    mode: '0600'
+  when: not check_dir.stat.exists
+
+- name: Sync git repository
+  git:
+    repo: "{{ dotfiles.repo }}"
+    dest: "{{ dotfiles.folder }}"
+    accept_hostkey: yes
+    track_submodules: yes
+    recursive: yes
+    update: yes
+  when: not check_dir.stat.exists
+
