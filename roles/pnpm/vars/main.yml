@@ -3,6 +3,9 @@
 # don't change filename to vars/install.yml (not loaded)
 
 pnpm:
+  global:
+    dir: ~/.local/share/pnpm/global/5
+    file: ~/dotfiles/.local/share/pnpm/global/5/package.json
   name: pnpm
   dir: ~/.local/share/pnpm
   url: 'https://get.pnpm.io/install.sh'

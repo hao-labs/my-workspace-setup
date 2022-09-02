@@ -30,3 +30,7 @@
     PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2
   when: check_file.stat.exists
+
+- name: Configure global package symlink
+  tags: install,pnpm
+  import_tasks: configure_symlink.yml
