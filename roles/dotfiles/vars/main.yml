@@ -21,3 +21,7 @@ symlinks:
   folders:
     - ~/dotfiles/.config/fish
     - ~/dotfiles/.config/lvim
+  replace_patterns:
+    - "{{ lookup('ansible.builtin.env', 'HOME') }}"
+    - ~/dotfiles
+    - ~/local-env

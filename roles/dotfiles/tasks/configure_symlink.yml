@@ -8,34 +8,22 @@
     hidden: yes
     file_type: file
     excludes: "{{ symlinks.exclude_files }}"
-  register: files
+  register: found_files
 
-- name: Create a directory if it does not exist
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: '0755'
-  with_items: "{{ create.folders }}"
+- name: Create file symlinks from ~/dotfiles to ~/
+  include_role:
+    name: common
+    tasks_from: create_file_symlink.yml
+  vars:
+    files: "{{ found_files.files | map(attribute='path') }}"
+    replace_with: "~"
+    patterns: "{{ symlinks.replace_patterns }}"
 
-- name: Create a file symbolic link
-  file:
-    src: "{{ item.path }}"
-    dest: "{{ item.path |
-      replace(lookup('ansible.builtin.env', 'HOME'), '~') |
-      replace('~/dotfiles', '~') |
-      replace('~/local-env', '~') }}"
-    state: link
-  with_items: "{{ files.files }}"
-
-- name: Remove existing symbolic link folder
-  file:
-    path: "{{ item | replace('~/dotfiles', '~') }}"
-    state: absent
-  with_items: "{{ symlinks.folders }}"
-
-- name: Create a folder symbolic link
-  file:
-    src: "{{ item }}"
-    dest: "{{ item | replace('~/dotfiles', '~') }}"
-    state: link
-  with_items: "{{ symlinks.folders }}"
+- name: Create folder symlinks from ~/dotfiles to ~/
+  include_role:
+    name: common
+    tasks_from: create_folder_symlink.yml
+  vars:
+    folders: "{{ symlinks.folders }}"
+    replace_with: "~"
+    patterns: "{{ symlinks.replace_patterns }}"
