@@ -23,11 +23,11 @@
       url: "{{ brew.url }}"
       register_env_path: "{{ brew.env }}"
       dir: "{{ brew.dir }}"
-      shell: /bin/bash /tmp/brew
+      shell: NONINTERACTIVE=1 /bin/bash /tmp/brew
       bin: "brew"
       check_version: true
       env:
         PATH: "{{ brew.dir }}:{{ ansible_env.PATH }}"
         # Non Interactive mode
-        CI: 1
+        # CI: 1
   when: not brew_check.stat.exists
