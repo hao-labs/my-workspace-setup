@@ -13,6 +13,7 @@ symlinks:
   path_files:
     - ~/dotfiles
     - ~/dotfiles/local-env
+    - ~/dotfiles/.config
   exclude_files:
     - '.git'
     - '.gitmodules'
