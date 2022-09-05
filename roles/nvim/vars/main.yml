@@ -7,5 +7,7 @@ nvim:
   dir: ~/.config/nvim
   init_file: init.lua
   init_path: ~/.config/nvim/init.lua
-  clone_url: git@github.com:hao-labs/neovim-config.git
-  key_file: ~/.ssh/id_ed25519
+lvim:
+  name: lvim
+  url: https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh
+  dir: ~/.local/bin

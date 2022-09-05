@@ -1,0 +1,33 @@
+---
+# roles/nvim/tasks/install_lvim.yml
+
+- name: Check lvim binary exists {{ lvim.dir }}/{{ lvim.name }}
+  stat:
+    path: "{{ lvim.dir }}/{{ lvim.name }}"
+  register: check_file
+
+# - name: Add current user as sudoers
+#   community.general.sudoers:
+#     name: add-current-user-sudoers
+#     state: present
+#     user: "{{ lookup('ansible.builtin.env', 'USER') }}"
+#     commands: ALL
+#     nopassword: true
+
+- name: Install lvim package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "{{ lvim.name }}"
+      url: "{{ lvim.url | regex_replace('\\s') }}"
+      dir: "{{ lvim.dir }}"
+      shell: bash /tmp/lvim -y
+      check_version: true
+  when: not check_file.stat.exists
+
+# - name: Revoke the previous sudo grants given to the current user
+#   community.general.sudoers:
+#     name: add-current-user-sudoers
+#     state: absent
