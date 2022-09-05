@@ -1,0 +1,19 @@
+---
+# roles/common/tasks/configure_symlink.yml
+
+- name: Check all folders exists
+  stat:
+    path: "{{ item |
+      replace(patterns[0] | default(''), replace_with) |
+      replace(patterns[1] | default(''), replace_with) |
+      replace(patterns[2] | default(''), replace_with) }}"
+  register: check_folders
+  with_items: "{{ folders }}"
+
+- name: Create a folder symlinks
+  file:
+    src: "{{ item.item }}"
+    dest: "{{ item.stat.path }}"
+    state: link
+  when: not item.stat.exists
+  with_items: "{{ check_folders.results }}"

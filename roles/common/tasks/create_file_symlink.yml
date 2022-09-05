@@ -1,0 +1,45 @@
+---
+# roles/common/tasks/create_file_symlink.yml
+
+- name: Check all files exists
+  stat:
+    path: "{{ item |
+      replace(patterns[0] | default(''), replace_with) |
+      replace(patterns[1] | default(''), replace_with) |
+      replace(patterns[2] | default(''), replace_with)}}"
+  register: check_files
+  with_items: "{{ files }}"
+
+- name: Check all folders exists
+  stat:
+    path: "{{ item |
+      replace(patterns[0] | default(''), replace_with) |
+      replace(patterns[1] | default(''), replace_with) |
+      replace(patterns[2] | default(''), replace_with) |
+      dirname }}"
+  register: check_folders
+  with_items: "{{ files }}"
+
+- name: Create a folder if folder does not exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  when: not item.stat.exists
+  with_items: "{{ check_folders.results  }}"
+
+- name: Remove destination file if file exists and not symlink
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  when: item.stat.exists
+    and not item.stat.islnk
+  with_items: "{{ check_files.results }}"
+
+- name: Create a file symbolic link
+  file:
+    src: "{{ item.item }}"
+    dest: "{{ item.path }}"
+    state: link
+  when: not item.stat.exists
+  with_items: "{{ check_files.results }}"
