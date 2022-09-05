@@ -22,7 +22,8 @@
 
 - name: Create a folder if folder does not exist
   file:
-    path: "{{ item }}"
+    path: "{{ item.stat.path |
+      default(item.invocation.module_args.path) }}"
     state: directory
     mode: '0755'
   when: not item.stat.exists
@@ -39,7 +40,8 @@
 - name: Create a file symbolic link
   file:
     src: "{{ item.item }}"
-    dest: "{{ item.path }}"
+    dest: "{{ item.stat.path |
+      default(item.invocation.module_args.path) }}"
     state: link
   when: not item.stat.exists
   with_items: "{{ check_files.results }}"

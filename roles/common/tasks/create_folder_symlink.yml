@@ -13,7 +13,8 @@
 - name: Create a folder symlinks
   file:
     src: "{{ item.item }}"
-    dest: "{{ item.stat.path }}"
+    dest: "{{ item.stat.path |
+      default(item.invocation.module_args.path) }}"
     state: link
   when: not item.stat.exists
   with_items: "{{ check_folders.results }}"
