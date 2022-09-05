@@ -1,7 +1,7 @@
 ---
 # roles/dotfiles/tasks/sync_dotfiles.yml
 
-- name: Check dotfiles folder exists {{ lvim.dir }}/{{ lvim.name }}
+- name: Check dotfiles folder exists {{ dotfiles.folder }}
   stat:
     path: "{{ dotfiles.folder }}"
   register: check_dir
