@@ -1,20 +1,18 @@
-- name: Install latest node lts version with pnpm 
-  command: "pnpm env use --global lts"
+- name: Check node file on {{ pnpm.dir }}/node
+  stat:
+    path: "{{ pnpm.dir }}/node"
+  register: check_file
+
+- name: Run shell script to install node
+  script: 
+    cmd: install_node.sh
   register: result
-  environment:
-    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
-    PNPM_HOME: "{{ pnpm.dir }}"
-  changed_when: result.rc == 2
+
+- name: Debug shell script
+  debug:
+    msg: "{{ result.stdout_lines }}"
 
 - name: Check node version
   command: "node --version"
-  register: result
-  environment:
-    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
-    PNPM_HOME: "{{ pnpm.dir }}"
-  changed_when: result.rc == 2
-
-- name: source ~/.profile
-  shell: ". ~/.profile"
   register: result
   changed_when: result.rc == 2

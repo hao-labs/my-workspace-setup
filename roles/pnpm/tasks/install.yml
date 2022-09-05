@@ -16,18 +16,13 @@
       url: "{{ pnpm.url | regex_replace('\\s') }}"
       dir: "{{ pnpm.dir }}"
       shell: sh /tmp/pnpm
+      bin: pnpm
       check_version: true
-      env:
-        PATH: "{{ pnpm.dir }}:{{ ansible_env.PATH }}"
-        PNPM_HOME: "{{ pnpm.dir }}"
   when: not check_file.stat.exists
 
 - name: Check pnpm version
   command: "pnpm --version"
   register: result
-  environment:
-    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
-    PNPM_HOME: "{{ pnpm.dir }}"
   changed_when: result.rc == 2
   when: check_file.stat.exists
 

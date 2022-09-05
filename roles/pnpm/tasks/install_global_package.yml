@@ -1,10 +1,15 @@
 ---
-# roles/pnpm/tasks/main.yml
+# roles/pnpm/tasks/install_global_package.yml
 
-- name: Install global package
-  command: pnpm install -g
-  environment:
-    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
-    PNPM_HOME: "{{ pnpm.dir }}"
+# - name: Install global package
+#   shell: ". ~/.profile; pnpm install -g"
+#   register: result
+#   changed_when: result.rc == 2
+- name: Run shell script to install global package
+  script: 
+    cmd: install_global_package.sh 
   register: result
-  changed_when: result.rc == 2
+
+- name: Debug shell script
+  debug:
+    msg: "{{ result.stdout_lines }}"

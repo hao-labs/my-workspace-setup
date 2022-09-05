@@ -5,13 +5,22 @@
   tags: install,pnpm
   import_tasks: install.yml
   when: ansible_distribution == "Ubuntu"
+  environment:
+    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
+    PNPM_HOME: "{{ pnpm.dir }}"
 
 - name: Install nodejs package
   tags: install,node
   import_tasks: install_node.yml
   when: ansible_distribution == "Ubuntu"
+  environment:
+    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
+    PNPM_HOME: "{{ pnpm.dir }}"
 
 - name: Install global package
   tags: install,global-pnpm
   import_tasks: install_global_package.yml
   when: ansible_distribution == "Ubuntu"
+  environment:
+    PATH: "{{ pnpm.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
+    PNPM_HOME: "{{ pnpm.dir }}"
