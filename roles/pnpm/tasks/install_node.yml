@@ -10,12 +10,15 @@
   script:
     cmd: install_node.sh
   register: result
+  when: not check_file.stat.exists
 
 - name: Debug shell script
   debug:
     msg: "{{ result.stdout_lines }}"
+  when: not check_file.stat.exists
 
 - name: Check node version
   command: "node --version"
   register: result
   changed_when: result.rc == 2
+  when: check_file.stat.exists

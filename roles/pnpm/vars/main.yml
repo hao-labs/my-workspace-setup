@@ -4,8 +4,11 @@
 
 pnpm:
   global:
-    dir: ~/.local/share/pnpm/global/5
     file: ~/dotfiles/.local/share/pnpm/global/5/package.json
+    replace_patterns:
+      - "{{ lookup('ansible.builtin.env', 'HOME') }}"
+      - ~/dotfiles
+      - ~/local-env  name: pnpm
   name: pnpm
   dir: ~/.local/share/pnpm
   url: 'https://get.pnpm.io/install.sh'

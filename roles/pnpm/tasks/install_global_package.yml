@@ -1,7 +1,13 @@
 ---
 # roles/pnpm/tasks/install_global_package.yml
 
+- name: Check node file on {{ pnpm.dir }}/node
+  stat:
+    path: "{{ pnpm.dir }}/node"
+  register: check_file
+
 - name: Run shell script to install global package
   script:
     cmd: install_global_package.sh
   register: result
+  when: check_file.stat.exists
