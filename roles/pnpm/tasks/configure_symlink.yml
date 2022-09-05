@@ -1,0 +1,33 @@
+---
+# roles/dotfiles/tasks/configure_symlink.yml
+
+- name: Check global dir exists {{ pnpm.global.dir }}
+  stat:
+    path: "{{ pnpm.global.dir }}"
+  register: check_dir
+
+- name: Create a directory {{ pnpm.global.dir }}
+  ansible.builtin.file:
+    path: "{{ pnpm.global.dir }}"
+    state: directory
+    mode: '0755'
+  when: not check_dir.stat.exists
+
+- name: Check package file exists {{ pnpm.global.file }}
+  stat:
+    path: "{{ pnpm.global.file }}"
+  register: check_file
+
+- name: Remove file symlinks {{ pnpm.global.file }}
+  file:
+    path: "{{ pnpm.global.file | replace('~/dotfiles', '~') }}"
+    state: absent
+  when: not check_file.stat.exists
+
+- name: Create a file symlink {{ pnpm.global.file }}
+  file:
+    src: "{{ pnpm.global.file }}"
+    dest: "{{ pnpm.global.file |
+      replace(lookup('ansible.builtin.env', 'HOME'), '~') |
+      replace('~/dotfiles', '~') }}"
+    state: link

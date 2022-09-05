@@ -13,6 +13,15 @@
     state: absent
   when: not brew_check.stat.exists
 
+- name: Add current user as sudoers
+  become: true
+  community.general.sudoers:
+    name: add-current-user-sudoers
+    state: present
+    user: "{{ lookup('ansible.builtin.env', 'USER') }}"
+    commands: ALL
+    nopassword: true
+
 - name: Install brew package
   include_role:
     name: common

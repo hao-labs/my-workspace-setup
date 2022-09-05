@@ -12,26 +12,3 @@
     state: directory
     mode: 0755
   when: not nvim_dir.stat.exists
-
-- name: Clone a repository
-  git:
-    repo: "{{ config.clone_url }}"
-    dest: "{{ config.dir }}"
-    accept_hostkey: yes
-    clone: yes
-    update: yes
-    version: "nvim-0.6.0-lua"
-    key_file: "{{ config.key_file }}"
-
-- name: Check if directory node_modules exist
-  stat:
-    path: "{{ config.dir }}/node_modules"
-  register: node_dir
-
-- name: Install dependency
-  command: pnpm install
-  environment:
-    PATH: "{{ brew.folder }}:{{ ansible_env.PATH }}"
-  register: result
-  changed_when: result.rc == 2
-  when: not node_dir.stat.exists

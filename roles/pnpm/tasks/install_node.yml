@@ -1,0 +1,21 @@
+---
+# roles/pnpm/tasks/install_node.yml
+
+- name: Check node file on {{ pnpm.dir }}/node
+  stat:
+    path: "{{ pnpm.dir }}/node"
+  register: check_file
+
+- name: Run shell script to install node
+  script:
+    cmd: install_node.sh
+  register: result
+
+- name: Debug shell script
+  debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Check node version
+  command: "node --version"
+  register: result
+  changed_when: result.rc == 2

@@ -1,0 +1,22 @@
+---
+# roles/pnpm/tasks/install.yml
+
+- name: Check pnpm binary exists {{ pnpm.dir }}/{{ pnpm.name }}
+  stat:
+    path: "{{ pnpm.dir }}/{{ pnpm.name }}"
+  register: check_file
+
+- name: Install pnpm package
+  script:
+    cmd: install_pnpm.sh
+  register: result
+  when: not check_file.stat.exists
+
+- name: Debug install pnpm package
+  debug:
+    msg: "{{ result.stdout_lines }}"
+  when: not check_file.stat.exists
+
+- name: Configure global package symlink
+  tags: install,pnpm
+  import_tasks: configure_symlink.yml

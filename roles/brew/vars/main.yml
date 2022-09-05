@@ -11,10 +11,9 @@ brew:
     - neovim
     - gh
     - fzf
-    - vale
+    # - vale
     - starship
     - exa
     - fish
     - glow
-    - gitlint
-    - pre-commit
+    # - gitlint

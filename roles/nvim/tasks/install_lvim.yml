@@ -1,0 +1,31 @@
+---
+# roles/nvim/tasks/install_lvim.yml
+
+- name: Check lvim binary exists {{ lvim.dir }}/{{ lvim.name }}
+  stat:
+    path: "{{ lvim.dir }}/{{ lvim.name }}"
+  register: check_file
+
+- name: Ensure python3 pip installed
+  include_role:
+    name: common
+    tasks_from: install_apt_package.yml
+  vars:
+    package:
+      name: python3-pip
+      bin_dir: ~/.local/bin
+
+- name: Check pip3 version
+  command: pip3 --version
+  register: result
+  changed_when: result.rc == 2
+
+- name: Install lvim package with shell script
+  script:
+    cmd: install_lvim.sh
+  register: result
+
+# - name: Revoke the previous sudo grants given to the current user
+#   community.general.sudoers:
+#     name: add-current-user-sudoers
+#     state: absent

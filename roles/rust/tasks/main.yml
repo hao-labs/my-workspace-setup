@@ -1,0 +1,35 @@
+---
+# roles/rust/tasks/install.yml
+
+- name: Check rust binary exists {{ rust.dir }}/{{ rust.name }}
+  stat:
+    path: "{{ rust.dir }}/{{ rust.name }}"
+  register: check_file
+
+- name: Install rust package
+  include_role:
+    name: common
+    tasks_from: install_package_remote_shell_script.yml
+  vars:
+    package:
+      name: "{{ rust.name }}"
+      url: "{{ rust.url | regex_replace('\\s') }}"
+      dir: "{{ rust.dir }}"
+      shell: sh /tmp/rustc -y
+      check_version: true
+      env:
+        PATH: "{{ rust.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
+  when: not check_file.stat.exists
+
+- name: Check cargo binary exists
+  stat:
+    path: "{{ rust.dir }}/{{ cargo.name }}"
+  register: check_file
+
+- name: Check cargo version
+  command: "{{ rust.dir }}/cargo --version"
+  environment:
+    PATH: "{{ rust.dir }}:{{ lookup('ansible.builtin.env', 'PATH') }}"
+  register: result
+  changed_when: result.rc == 2
+  when: check_file.stat.exists

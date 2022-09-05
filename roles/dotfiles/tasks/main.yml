@@ -1,0 +1,12 @@
+---
+# roles/dotfiles/tasks/main.yml
+
+- name: Sync dotfiles folder
+  tags: install,dotfiles
+  import_tasks: sync_dotfiles.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Configure symlink folders and files
+  tags: install,dotfiles
+  import_tasks: configure_symlink.yml
+  when: ansible_distribution == "Ubuntu"

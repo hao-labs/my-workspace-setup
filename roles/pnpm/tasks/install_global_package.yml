@@ -1,0 +1,7 @@
+---
+# roles/pnpm/tasks/install_global_package.yml
+
+- name: Run shell script to install global package
+  script:
+    cmd: install_global_package.sh
+  register: result

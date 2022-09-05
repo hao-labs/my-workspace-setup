@@ -1,0 +1,10 @@
+---
+# roles/rust/vars/main.yml
+# don't change filename to vars/install.yml (not loaded)
+
+rust:
+  name: rustc
+  dir: ~/.cargo/bin
+  url: 'https://sh.rustup.rs'
+cargo:
+  name: cargo

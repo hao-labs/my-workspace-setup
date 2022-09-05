@@ -3,13 +3,15 @@
 
 - hosts: workspace
   roles:
+    - dotfiles
+    - pnpm
     - brew
     - mosh
+    # - git
+    # - eslint
+    # - write_good
+    # - prettier
+    - rust
     - nvim
-    - kool
+    # - kool
     - oh-my-fish
-    - node
-    - git
-    - eslint
-    - write_good
-    - prettier
