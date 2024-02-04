@@ -1,5 +1,6 @@
 ---
 # roles/brew/tasks/install.yml
+# Installing brew on linux
 
 - name: Check if linux brew already installed on {{ brew.dir }}
   stat:

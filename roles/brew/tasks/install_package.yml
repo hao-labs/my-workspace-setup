@@ -1,5 +1,8 @@
 ---
 # roles/brew/tasks/package.yml
+# Installing multiple package with brew
+# List of packages from vars/main.yml
+
 - name: Get list of installed brew packages
   environment:
     PATH: "{{ brew.dir }}:{{ ansible_env.PATH }}"
