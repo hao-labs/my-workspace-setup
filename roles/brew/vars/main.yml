@@ -15,5 +15,5 @@ brew:
     - starship
     - exa
     - fish
-    - glow
+    # - glow
     # - gitlint
