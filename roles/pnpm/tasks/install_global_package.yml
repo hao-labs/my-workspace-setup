@@ -1,5 +1,6 @@
 ---
 # roles/pnpm/tasks/install_global_package.yml
+# install js package on globally
 
 - name: Check node file on {{ pnpm.dir }}/node
   stat:

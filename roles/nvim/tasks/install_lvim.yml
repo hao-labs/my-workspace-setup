@@ -26,7 +26,7 @@
   register: result
   when: not check_file.stat.exists
 
-- name: Check clipboard binary exists /usr/local/bin/win32yank.exe
+- name: Check clipboard binary doesn't exists /usr/local/bin/win32yank.exe
   stat:
     path: "/usr/local/bin/win32yank.exe"
   register: check_file
@@ -36,7 +36,6 @@
     cmd: install_clipboard.sh
   register: result
   when: not check_file.stat.exists
-
 # - name: Revoke the previous sudo grants given to the current user
 #   community.general.sudoers:
 #     name: add-current-user-sudoers

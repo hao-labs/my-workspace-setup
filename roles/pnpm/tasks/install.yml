@@ -1,5 +1,7 @@
 ---
 # roles/pnpm/tasks/install.yml
+# Install PNPM on linux
+# PNPM for JS package manager
 
 - name: Check pnpm binary exists {{ pnpm.dir }}/{{ pnpm.name }}
   stat:

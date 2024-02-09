@@ -1,5 +1,6 @@
 ---
 # roles/pnpm/tasks/install_node.yml
+# Install node LTS version with PNPM
 
 - name: Check node file on {{ pnpm.dir }}/node
   stat:
