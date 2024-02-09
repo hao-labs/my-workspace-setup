@@ -1,0 +1,17 @@
+---
+# roles/nvim/tasks/install_astronvim.yml
+
+# Get information of ~/.config/nvim folder
+# and stored as check_dir variable
+- name: Get ~/.config/nvim folder exists {{ dotfiles.folder }}
+  stat:
+    path: "{{ astronvim.folder }}"
+  register: check_dir
+
+- name: Clone the repository astronvim
+  git:
+    repo: "{{ astronvim.repo }}"
+    dest: "{{ astronvim.dir }}"
+    version: master
+    depth: 1
+  when: not check_dir.stat.exists

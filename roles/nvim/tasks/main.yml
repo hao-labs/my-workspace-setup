@@ -7,6 +7,10 @@
   vars:
     config: "{{ nvim }}"
 
-- name: Install lvim
-  tags: configure,lvim
-  import_tasks: install_lvim.yml
+# - name: Install lvim
+#   tags: install,lvim
+#   import_tasks: install_lvim.yml
+
+- name: Install astronvim
+  tags: install, astronvim
+  import_tasks: install_astronvim.yml

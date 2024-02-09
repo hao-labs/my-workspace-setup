@@ -13,3 +13,6 @@ lvim:
     https://raw.githubusercontent.com/lunarvim/
     lunarvim/master/utils/installer/install.sh
   dir: ~/.local/bin
+astronvim:
+  repo: https://github.com/AstroNvim/AstroNvim
+  dir: ~/.config/nvim
