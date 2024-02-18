@@ -2,3 +2,6 @@
 # host_vars/localhost
 
 ansible_connection: local
+linux_os:
+    - 'Ubuntu'
+    - 'Linux Mint'
