@@ -1,22 +1,22 @@
 ---
 # roles/node/tasks/main.yml
 
-- name: Install {{ node.name }} on Ubuntu
+- name: Install {{ node.name }} on {{ ansible_distribution }}
   tags: install,node
   import_tasks: install.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os
 
-- name: Install yarn on Ubuntu
+- name: Install yarn on {{ ansible_distribution }}
   tags: install,yarn
   import_tasks: install_yarn.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os
 
-- name: Install pnpm on Ubuntu
+- name: Install pnpm on {{ ansible_distribution }}
   tags: install,pnpm
   import_tasks: install_pnpm.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os
 
-- name: Install peerdeps on Ubuntu
+- name: Install peerdeps on {{ ansible_distribution }}
   tags: install,peerdeps
   import_tasks: install_peerdeps.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os

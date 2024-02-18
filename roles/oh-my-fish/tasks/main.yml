@@ -1,10 +1,10 @@
 ---
 # roles/oh-my-fish/tasks/main.yml
 
-- name: Install and setup oh-my-fish on Ubuntu
+- name: Install and setup oh-my-fish on {{ ansible_distribution }}
   tags: install,oh-my-fish
   import_tasks: install.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os
 
 - name: Set fish shell as default shell
   import_tasks: set_default_shell.yml

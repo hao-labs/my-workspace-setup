@@ -1,11 +1,11 @@
 ---
 # roles/kool/tasks/main.yml
 
-- name: Install and setup kool on Ubuntu
+- name: Install and setup kool on {{ ansible_distribution }}
   tags: install,kool
   become: yes
   import_tasks: install.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution in linux_os
 
 - name: Configure kool
   become: yes
