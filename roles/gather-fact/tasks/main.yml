@@ -1,0 +1,3 @@
+---
+# roles/gather-fact/tasks/main.yml
+- import_tasks: get_ubuntu_codename.yml

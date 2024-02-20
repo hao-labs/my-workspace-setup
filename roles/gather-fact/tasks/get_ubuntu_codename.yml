@@ -1,0 +1,27 @@
+---
+# roles/gather-fact/tasks/get_ubuntu_codename.yml
+- name: Get Ubuntu codename for {{ ansible_distribution }}
+  when:
+    - ansible_facts['os_family'] == 'Debian'
+    - ansible_facts['distribution'] != 'Ubuntu'
+  block:
+    - name: Create a temporary file
+      ansible.builtin.tempfile:
+        prefix: .fetched_
+        state: file
+      register: tempfile
+
+    - name: Fetch os-release
+      ansible.builtin.fetch:
+        src: /etc/os-release
+        dest: "{{ tempfile.path }}"
+        flat: yes
+      register: fetched
+
+    - name: Set Ubuntu Code Name
+      set_fact:
+        ubuntu_codename: "{{ lookup('ini', 'UBUNTU_CODENAME type=properties file=' + fetched.dest) }}"
+
+    - name: Use Ubuntu Code Name
+      debug:
+        msg: "The Ubuntu codename is {{ ubuntu_codename }}"
