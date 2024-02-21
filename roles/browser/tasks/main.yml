@@ -1,0 +1,7 @@
+---
+# roles/browser/tasks/main.yml
+
+- name: Install brave browser on {{ ansible_distribution }}
+  tags: install,browser,brave
+  import_tasks: install_brave.yml
+  when: ansible_distribution in linux_os

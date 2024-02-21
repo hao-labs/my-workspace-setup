@@ -1,0 +1,40 @@
+---
+# roles/browser/tasks/install_brave.yml
+
+- name: Check if curl is installed
+  command: curl --version
+  register: curl_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install curl
+  apt:
+    name: curl
+    state: present
+    update_cache: yes
+  when: curl_check.rc !=  0
+  become: true
+
+- name: Download Brave Browser GPG key
+  get_url:
+    url: https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg
+    dest: /usr/share/keyrings/brave-browser-beta-archive-keyring.gpg
+    mode: "0644"
+  become: true
+
+- name: Add Brave Browser repository
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/brave-browser-beta-archive-keyring.gpg] https://brave-browser-apt-beta.s3.brave.com/ stable main
+    state: present
+  become: true
+
+- name: Update package cache
+  apt:
+    update_cache: yes
+  become: true
+
+- name: Install Brave Browser
+  apt:
+    name: brave-browser-beta
+    state: present
+  become: true
