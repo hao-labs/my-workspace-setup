@@ -1,0 +1,6 @@
+---
+# roles/docker/vars/main.yml
+# Map ansible architecture {{ ansible_architecture }} names to Docker's architecture names
+arch_mapping:
+  x86_64: amd64
+  aarch64: arm64
