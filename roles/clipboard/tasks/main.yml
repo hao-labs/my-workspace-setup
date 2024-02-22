@@ -1,0 +1,7 @@
+---
+# roles/clipboard/tasks/main.yml
+
+- name: Install clipboard manager on {{ ansible_distribution }}
+  tags: install,clipboard,xclip
+  import_tasks: install_xclip.yml
+  when: ansible_distribution in linux_os

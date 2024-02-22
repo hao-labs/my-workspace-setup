@@ -1,0 +1,9 @@
+---
+# roles/clipboard/tasks/install_xclip.yml
+
+- name: Ensure xclip is installed
+  apt:
+    name: xclip
+    state: present
+    update_cache: yes
+  become: true
