@@ -8,6 +8,7 @@ brew:
   url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
   packages:
     - ripgrep
+    - fd
     - neovim
     - gh
     - fzf
