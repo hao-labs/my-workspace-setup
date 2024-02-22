@@ -1,0 +1,14 @@
+---
+# roles/downloader/tasks/install_freedownloadmanager.yml
+
+- name: Download Free Download Manager .deb package
+  ansible.builtin.get_url:
+    url: "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
+    dest: "/tmp/freedownloadmanager.deb"
+    mode: "0644"
+
+- name: Install Free Download Manager .deb package
+  ansible.builtin.apt:
+    deb: "/tmp/freedownloadmanager.deb"
+    state: present
+  become: true
