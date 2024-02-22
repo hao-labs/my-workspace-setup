@@ -1,0 +1,7 @@
+---
+# roles/sql-client/tasks/main.yml
+
+- name: Install beekeper studio on {{ ansible_distribution }}
+  tags: install,sql,beekeper
+  import_tasks: install_beekeeper_studio.yml
+  when: ansible_distribution in linux_os

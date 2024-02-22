@@ -1,0 +1,14 @@
+---
+# roles/sql-client/tasks/install_beekeeper_studio.yml
+
+- name: Download Beekeeper Studio .deb package
+  ansible.builtin.get_url:
+    url: "https://github.com/beekeeper-studio/beekeeper-studio/releases/download/v{{ beekeeper.version }}/beekeeper-studio_{{ beekeeper.version }}_amd64.deb"
+    dest: "/tmp/beekeeper-studio_{{ beekeeper.version }}_amd64.deb"
+    mode: "0644"
+
+- name: Install Beekeeper Studio .deb package
+  ansible.builtin.apt:
+    deb: "/tmp/beekeeper-studio_{{ beekeeper.version }}_amd64.deb"
+    state: present
+  become: true

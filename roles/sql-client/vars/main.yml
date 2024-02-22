@@ -1,0 +1,4 @@
+---
+# roles/sql-client/vars/main.yml
+beekeeper:
+  version: 4.1.13
