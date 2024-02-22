@@ -3,9 +3,9 @@
 
 # Get information of ~/.config/nvim folder
 # and stored as check_dir variable
-- name: Get ~/.config/nvim folder exists {{ dotfiles.folder }}
+- name: Get nvim config folder exists {{ nvim.dir }}
   stat:
-    path: "{{ astronvim.folder }}"
+    path: "{{ nvim.dir }}"
   register: check_dir
 
 - name: Clone the repository astronvim
@@ -15,3 +15,24 @@
     version: master
     depth: 1
   when: not check_dir.stat.exists
+
+- name: Check if {{ nvim.dir }} exists and remove
+  file:
+    path: "{{ nvim.dir }}"
+    state: absent
+
+- name: Create symbolic link from {{ astronvim.dir }} to ~/.config/nvim
+  file:
+    src: "{{ astronvim.dir }}"
+    dest: "{{ nvim.dir }}"
+    state: link
+
+- name: Create user configuration directory
+  file:
+    path: "{{ nvim.dir }}/lua/user"
+    state: directory
+
+- name: Clone custom user configuration repository
+  git:
+    repo: "{{ astronvim.user_repo }}"
+    dest: "{{ nvim.dir }}/lua/user"

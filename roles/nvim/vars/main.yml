@@ -15,4 +15,5 @@ lvim:
   dir: ~/.local/bin
 astronvim:
   repo: https://github.com/AstroNvim/AstroNvim
-  dir: ~/.config/nvim
+  user_repo: git@github.com:hao-labs/AstroNvim_user.git
+  dir: ~/.config/AstroNvim
