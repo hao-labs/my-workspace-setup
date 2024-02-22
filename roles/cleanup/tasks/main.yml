@@ -1,0 +1,7 @@
+---
+# roles/cleanup/tasks/main.yml
+
+- name: Remove /tmp files for the last 30 days on {{ ansible_distribution }}
+  tags: remove,tmp
+  import_tasks: remove_tmp_file.yml
+  when: ansible_distribution in linux_os

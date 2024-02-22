@@ -1,0 +1,19 @@
+---
+# roles/cleanup/tasks/remove_tmp_file.yml
+
+- name: Configure systemd-tmpfiles to remove files older than  1 month from /tmp
+  ansible.builtin.copy:
+    dest: /etc/tmpfiles.d/tmp.conf
+    content: |
+      q /tmp   1777 root root   30d
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload systemd-tmpfiles
+  become: true
+
+- name: Reload systemd-tmpfiles
+  ansible.builtin.systemd:
+    name: tmp.mount
+    state: reloaded
+  become: true
