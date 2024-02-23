@@ -1,0 +1,4 @@
+---
+# roles/password-manager/vars/main.yml
+buttercup:
+  version: 2.25.0

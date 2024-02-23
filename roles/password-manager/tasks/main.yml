@@ -1,0 +1,7 @@
+---
+# roles/password-manager/tasks/main.yml
+
+- name: Install Buttercup on {{ ansible_distribution }}
+  tags: install,password,buttercup
+  import_tasks: install_buttercup.yml
+  when: ansible_distribution in linux_os
