@@ -1,0 +1,4 @@
+---
+# roles/obsidian/vars/main.yml
+obsidian:
+  version: 1.5.3

@@ -1,0 +1,7 @@
+---
+# roles/notes/tasks/main.yml
+
+- name: Install obsidian on {{ ansible_distribution }}
+  tags: install,notes,obsidian
+  import_tasks: install_obsidian.yml
+  when: ansible_distribution in linux_os
