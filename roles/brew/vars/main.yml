@@ -14,7 +14,7 @@ brew:
     - fzf
     # - vale
     - starship
-    - exa
+    - eza
     - fish
     # - glow
     # - gitlint
