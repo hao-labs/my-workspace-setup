@@ -1,0 +1,41 @@
+---
+# roles/api-client/tasks/install_postman.yml
+
+- name: Download Postman
+  get_url:
+    url: https://dl.pstmn.io/download/latest/linux64
+    dest: /tmp/postman.tar.gz
+    mode: "0755"
+
+- name: Unpack Postman
+  unarchive:
+    src: /tmp/postman.tar.gz
+    dest: /opt
+    remote_src: yes
+  become: true
+
+- name: Create symbolic link to Postman executable
+  file:
+    src: /opt/Postman/Postman
+    dest: /usr/local/bin/postman
+    state: link
+    mode: "0755"
+  become: true
+
+- name: Place Postman icon
+  copy:
+    src: /opt/Postman/app/icons/icon_128x128.png # Update this path to your icon file location
+    dest: /usr/share/pixmaps/postman.png
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+    
+- name: Create desktop entry for Postman
+  become: true
+  template:
+    src: postman.desktop 
+    dest: /usr/share/applications/postman.desktop
+    owner: root
+    group: root
+    mode: '0755'

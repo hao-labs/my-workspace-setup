@@ -1,0 +1,12 @@
+---
+# roles/api-client/tasks/main.yml
+
+- name: Install Insomnia on {{ ansible_distribution }}
+  tags: install,api,insomnia
+  import_tasks: install_insomnia.yml
+  when: ansible_distribution in linux_os
+
+- name: Install Postman on {{ ansible_distribution }}
+  tags: install,api,postman
+  import_tasks: install_postman.yml
+  when: ansible_distribution in linux_os

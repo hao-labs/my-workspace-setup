@@ -1,0 +1,14 @@
+---
+# roles/api-client/tasks/install_beekeeper_studio.yml
+
+- name: Download Insomnia .deb package
+  ansible.builtin.get_url:
+    url: "https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app&source=website"
+    dest: "/tmp/insomnia_latest_amd64.deb"
+    mode: "0644"
+
+- name: Install Insomnia .deb package
+  ansible.builtin.apt:
+    deb: "/tmp/insomnia_latest_amd64.deb"
+    state: present
+  become: true

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Postman
+Exec=/usr/local/bin/postman
+Icon=/usr/share/pixmaps/postman.png
+Comment=API Development Environment
+Categories=Development;
+Terminal=false
+StartupNotify=true
